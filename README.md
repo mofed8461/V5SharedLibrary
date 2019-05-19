@@ -67,5 +67,7 @@ int main()
 
 # Advance Usage:
 testEXE contains a Dynamically loaded library
+
 testEXE2 contains a Statically loaded library
+
 Both with ability to create class
