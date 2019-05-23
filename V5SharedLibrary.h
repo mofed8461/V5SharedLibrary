@@ -52,35 +52,49 @@
 
 
 #include <iostream>
+#include <vector>
 
+class V5SharedLibrary
+{
+private:
 #if defined _WIN32
-class V5SharedLibrary
-{
-private:
     HINSTANCE handle;
+    
     bool loaded;
+    
     std::string fileName;
-    bool loadFailed;
-public:
-    const static int32_t MODE_LAZY;
-    const static int32_t MODE_NOW;
-	V5SharedLibrary(const std::string& file, const int32_t& mode = MODE_NOW);
-    bool LoadFailed();
-    void* GetFunction(const std::string& name);
-	virtual ~V5SharedLibrary();
-};
 #else
-class V5SharedLibrary
-{
-private:
     void* handle;
+#endif
+    
+    void load(const std::string& file, const int32_t& mode);
+    
     bool loadFailed;
 public:
+    
+    static std::vector<std::string> SearchPaths;
+    
+    static std::vector<std::string> FileNamePrefixes;
+    
+    static std::vector<std::string> FileNameExtensions;
+    
+    static std::string GetStartUpPath();
+    
+    static void AddDefaultSearchPaths();
+    
+    static void AddDefaultFileNamePrefixes();
+    
+    static void AddDefaultFileNameExtensions();
+    
     const static int32_t MODE_LAZY;
+    
     const static int32_t MODE_NOW;
+    
 	V5SharedLibrary(const std::string& file, const int32_t& mode = MODE_NOW);
+    
     bool LoadFailed();
+    
     void* GetFunction(const std::string& name);
+    
 	virtual ~V5SharedLibrary();
 };
-#endif
